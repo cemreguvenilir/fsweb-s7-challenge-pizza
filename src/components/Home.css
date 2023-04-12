@@ -12,7 +12,7 @@ a {
 }
 
 .homeH {
-  padding-top: 5rem;
+  padding-top: 3rem;
   font-size: 30px;
   padding-bottom: 3rem;
 }
@@ -20,8 +20,8 @@ a {
 .homeText {
   font-family: "Barlow";
   color: white;
-  font-size: 50px;
-  margin: 1rem;
+  font-size: 60px;
+  margin: 1px;
 }
 
 .homeButton {

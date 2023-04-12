@@ -17,6 +17,14 @@ const Home = () => {
       <button onClick={toOrderPage} className="homeButton">
         ACIKTIM
       </button>
+      <div
+        style={{
+          backgroundImage: 'url("img/banner.png")',
+          backgroundSize: "cover",
+          height: "100%",
+          width: "100%",
+        }}
+      ></div>
     </div>
   );
 };
