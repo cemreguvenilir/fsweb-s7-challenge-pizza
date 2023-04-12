@@ -1,0 +1,34 @@
+.home {
+  background-color: #ce2829;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.homeH {
+  padding-top: 5rem;
+  font-size: 30px;
+  padding-bottom: 3rem;
+}
+
+.homeText {
+  font-family: "Barlow";
+  color: white;
+  font-size: 50px;
+  margin: 1rem;
+}
+
+.homeButton {
+  width: 12rem;
+  height: 4rem;
+  border-radius: 50px;
+  font-weight: bold;
+  border: none;
+  margin-top: 2rem;
+}

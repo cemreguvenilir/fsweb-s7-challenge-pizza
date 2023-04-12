@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Form.css";
+import { Link } from "react-router-dom";
 
 const initialForm = {
   id: "",
@@ -69,12 +70,18 @@ const Form = () => {
   return (
     <>
       <div className="header">
-        <h1>Teknolojik Yemekler</h1>
+        <h1>
+          <Link to="/">Teknolojik Yemekler</Link>
+        </h1>
         <nav>
           <ul>
-            <li className="navItem">Ana Sayfa</li>
+            <li className="navItem">
+              <Link to="/"> Ana Sayfa </Link>
+            </li>
             <li className="navItem">Seçenekler</li>
-            <li className="navItem">Sipariş Oluştur </li>
+            <li className="navItem">
+              <Link to="/pizza">Sipariş Oluştur</Link>{" "}
+            </li>
           </ul>
         </nav>
       </div>
@@ -233,7 +240,8 @@ const Form = () => {
               </div>
             </div>
             <button className="order-button" id="order-button" type="submit">
-              SİPARİŞ VER
+              {" "}
+              <Link to="/success">SİPARİŞ VER</Link>
             </button>
           </div>
         </div>

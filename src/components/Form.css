@@ -99,13 +99,18 @@ span.star {
 }
 button {
   background-color: #fdc913;
-  border-radius: 5%;
+
+  border: none;
 }
 button.order-button {
   background-color: #fdc913;
-  border-radius: 5%;
+  border-radius: 10px;
   padding: 1rem;
   font-weight: bold;
+}
+
+button.order-button a {
+  color: #292929;
 }
 hr.lastPart {
   width: 100%;
@@ -119,6 +124,7 @@ hr.lastPart {
 
 .countButton {
   width: 3rem;
+  border-radius: 4px;
 }
 #count {
   width: 3rem;
