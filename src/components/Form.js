@@ -11,12 +11,20 @@ const initialForm = {
   ingredients: [],
   note: "",
   number: 1,
-  price: "",
+  price: 90,
 };
 
 const Form = () => {
   const [formData, setFormData] = useState(initialForm);
   const [ekMalzeme, setEkMalzeme] = useState(0);
+  const [counter, setCounter] = useState(1);
+  const [pizzaPrice, setPizzaPrice] = useState(0);
+
+  const sizePrice = {
+    small: 90,
+    medium: 120,
+    large: 150,
+  };
 
   const ingredients = [
     "Pepperoni",
@@ -35,26 +43,45 @@ const Form = () => {
     "Kabak",
   ];
   function changeHandler(e) {
-    const { value, type, checked, name } = e.target;
-    /* if (type === "checkbox") {
+    let { value, type, checked } = e.target;
+    if (type === "checkbox") {
+      value = checked;
+      if (checked) {
+        setEkMalzeme(ekMalzeme + 5);
+      } else {
+        setEkMalzeme(ekMalzeme - 5);
+      }
+    }
+    if (type === "radio") {
+      setPizzaPrice(sizePrice[value]);
+    }
+
+    const newFormData = {
+      ...formData,
+      [e.target.name]: value,
+    };
+    setFormData(newFormData);
+
+    /*const { value, type, checked, name } = e.target;
+    if (type === "checkbox") {
       let newFormData;
       if (formData.ingredients.includes(value)) {
         newFormData = formData.ingredients.filter((m) => m !== value);
       } else {
         newFormData = [...formData.ingredients, value];
       }
-    }
-    setFormData({
-      ...formData,
-      [name]: value,
-    });*/
+      setFormData({
+        ...formData,
+        [name]: newFormData,
+      });
+    }*/
 
-    let fieldData = type === "checkbox" ? checked : value;
+    /* let fieldData = type === "checkbox" ? checked : value;
     const newFormData = {
       ...formData,
       [name]: fieldData,
     };
-    setFormData(newFormData);
+    setFormData(newFormData);*/
   }
 
   function submitHandler(e) {
@@ -66,6 +93,17 @@ const Form = () => {
     .post("https://reqres.in/api/users", formData)
     .then((response) => console.log(response.data))
     .catch((error) => console.log(error));
+
+  if (counter < 1) {
+    setCounter(1);
+  }
+  const arttir = () => {
+    setCounter(counter + 1);
+  };
+
+  const azalt = () => {
+    setCounter(counter - 1);
+  };
 
   return (
     <>
@@ -89,7 +127,7 @@ const Form = () => {
         <div className="container">
           <h2>Position Absolute Acı Pizza</h2>
           <div className="pizzaInfo">
-            <div className="price">85.50 </div>{" "}
+            <div className="price"> {formData.price} ₺</div>{" "}
             <div className="puan">
               {" "}
               4.9 <span> (200) </span>
@@ -135,14 +173,14 @@ const Form = () => {
                   Orta
                 </label>
 
-                <label htmlFor="big">
+                <label htmlFor="large">
                   {" "}
                   <input
                     type="radio"
-                    id="big"
+                    id="large"
                     name="size"
-                    value="big"
-                    checked={formData.size === "big"}
+                    value="large"
+                    checked={formData.size === "large"}
                     onChange={(e) => changeHandler(e)}
                   />
                   Büyük
@@ -154,29 +192,22 @@ const Form = () => {
                     Hamur Seç <span className="star">*</span>
                   </h3>
                 </label>
-                <select id="dough-dropdown" name="dough">
+                <select
+                  id="dough-dropdown"
+                  name="dough"
+                  value={formData.dough}
+                  onChange={(e) => changeHandler(e)}
+                >
                   <option value="" disabled selected hidden>
                     Hamur Kalınlığı
                   </option>
-                  <option
-                    checked={formData.dough === "thin"}
-                    onChange={(e) => changeHandler(e)}
-                    value="thin"
-                  >
+                  <option checked={formData.dough === "thin"} value="thin">
                     İnce
                   </option>
-                  <option
-                    checked={formData.dough === "normal"}
-                    onChange={(e) => changeHandler(e)}
-                    value="normal"
-                  >
+                  <option checked={formData.dough === "normal"} value="normal">
                     Normal
                   </option>
-                  <option
-                    checked={formData.dough === "thick"}
-                    onChange={(e) => changeHandler(e)}
-                    value="thick"
-                  >
+                  <option checked={formData.dough === "thick"} value="thick">
                     Kalın
                   </option>
                 </select>
@@ -197,8 +228,8 @@ const Form = () => {
                           type="checkbox"
                           id={index}
                           name={e}
-                          value={index}
-                          // checked={formData.ingredients.includes(index)}
+                          value={formData.ingredients === "e"}
+                          //checked={formData.ingredients.indexOf(e)> -1}
                           onChange={(e) => changeHandler(e)}
                         ></input>
                         {e}{" "}
@@ -225,18 +256,25 @@ const Form = () => {
         <hr className="lastPart" />
         <div className="orderPart">
           <div className="numberButton">
-            <button className="countButton"> - </button>
-            <input id="count" type="number" value="number" />
-            <button className="countButton"> + </button>
+            <button onClick={azalt} className="countButton">
+              {" "}
+              -{" "}
+            </button>
+            <input id="count" type="number" value={counter} />
+            <button onClick={arttir} className="countButton">
+              {" "}
+              +{" "}
+            </button>
           </div>
           <div className="boxButton">
             <div className="sumOrder">
               <h3>Sipariş Toplamı</h3>
               <div className="ingredientSum">
-                <div>Seçimler</div> <div>25tl</div>
+                <div>Seçimler</div> <div>{ekMalzeme} ₺ </div>
               </div>
               <div className="totalSum">
-                <div>Toplam</div> <div>110.50tl</div>
+                <div>Toplam</div>{" "}
+                <div>{counter * (pizzaPrice + ekMalzeme)} ₺ </div>
               </div>
             </div>
             <button className="order-button" id="order-button" type="submit">
