@@ -35,6 +35,7 @@ p {
   margin-right: 30%;
   flex-direction: column;
   margin-bottom: 5rem;
+  line-height: 1.5;
 }
 .container,
 .orderPart {
@@ -145,4 +146,17 @@ hr.lastPart {
 
 .totalSum {
   color: #ce2829;
+}
+
+/*contact*/
+.contact {
+  display: flex;
+  flex-direction: column;
+}
+#name,
+#email {
+  width: 40%;
+}
+#address {
+  height: 3rem;
 }
